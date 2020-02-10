@@ -63,8 +63,10 @@ def printChoices():
     print("2. Add to holding")
 
 def topTen(response):
-    print("Name: " + "Symbol: " + 'Price ' + "Percent change 24 hours " + 'Percent change 7 days')
+    #print("Name: " + "Symbol: " + 'Price ' + "Percent change 24 hours " + 'Percent change 7 days')
     length = 0
+    size_of_space = 14
+    size_of_space_symbol = 8
     for length,symbol in enumerate(response,1):
         if length == 10:
             return response
@@ -78,7 +80,10 @@ def topTen(response):
             price = float(price)
             price = round(price,2)
         price = str(price)
-        print(coin['name'] + coin['symbol'] + price)
+        white_space = ' ' * 20
+        size_of_space_missing_coin = (size_of_space - len(coin['name'])) * ' '
+        size_of_space_missing_symbol = (size_of_space_symbol - len(coin['symbol'])) * ' '
+        print(coin['name'] + size_of_space_missing_coin +  coin['symbol'], size_of_space_missing_symbol, round(float(price),2))
 
 def addToTextFile(stickerToAdd, amount, portfolio):
     print("Will add", stickerToAdd)
@@ -106,13 +111,13 @@ guardian = True
 while guardian:
     portfolio = getPortfolio()
     print("Here is your portfolio: ")
-    print("Symbol: " + "Amount: " + "Market value: " )
+    print("Symbol: " + "Amount: " + "Market value: "  + "               Price: ")
     for y in portfolio:
         if y != '':
             price = response[y]['price']
             mv = price*float(portfolio[y])
-            mv = str(mv)
-        print(y + ':    ' + portfolio[y] + "     $: " + mv )
+            mv = str(round(mv,2))
+            print(y + ':   ', portfolio[y], "     $: " + mv + '      $', round(response[y]['price'],2))
     printChoices()
     choice = int(input("Please insert choice: "))
     if choice == 1:
