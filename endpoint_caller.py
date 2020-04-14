@@ -2,7 +2,7 @@ from requests import Request, Session
 from requests.exceptions import ConnectionError, Timeout, TooManyRedirects
 import json
 
-class endpointCaller():
+class EndpointCaller():
     def __init__(self):
         self.callerId = 1
     # The parameters into this method will have to be devised and sent from
