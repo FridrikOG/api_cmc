@@ -6,13 +6,12 @@ def printChoices():
 def print_portfolio(portfolio, response):
     print("Here is your portfolio: ")
     print("Symbol: " + "Amount: " + "Market value: "  + "               Price: ")
-    for y in portfolio:
-            if y != '':
-                price = response[y]['price']
-                mv = price*float(portfolio[y])
-                mv = str(round(mv,2))
-                print(y + ':   ', portfolio[y], "     $: " + mv + '      $', round(response[y]['price'],2))
-
+    for x,y in zip(portfolio, response):
+        if portfolio[x] != 'emp':
+            price = response[y]['price']
+            mv = price*float(portfolio[y])
+            mv = str(round(mv,2))
+            print(y + ':   ', portfolio[y], "     $: " + mv + '      $', round(response[y]['price'],2))
 
 def print_top_ten(response):
     #print("Name: " + "Symbol: " + 'Price ' + "Percent change 24 hours " + 'Percent change 7 days')

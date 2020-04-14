@@ -41,11 +41,15 @@ print(session)
 manager = PortfolioManager()
 manager.params = parameters
 response = manager.get_crypto_data(session, LATESTURL)
+symbols = []
 for y in response:
-    print(y['symbol'])
+    if y != '':
+        symbol = response[y]['symbol']
+        symbols.append(symbol)
+
 guardian = True
 while guardian:
-    portfolio = get_portfolio()
+    portfolio = get_portfolio(symbols)
     print_portfolio(portfolio, response)
     printChoices()
     choice = int(input("Please insert choice: "))
@@ -65,6 +69,9 @@ while guardian:
             except ValueError:
                 print("Valid input please, a number ")
             input("Any button to go back ")
+    elif choice == 3:
+        reset_portfolio(symbols)
+        
 
     
     # This option should clear your portfolio

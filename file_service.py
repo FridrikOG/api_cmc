@@ -1,17 +1,15 @@
 import csv
 
-def get_portfolio():
+def get_portfolio(symbols = 'adsfs'):
+    new_dict = {}
     with open('portfolio.csv') as csv_file:
-        csvReader = csv.DictReader(csv_file, delimiter = ';')
-        csv_reader = csv_file.readlines()
-        symbolList = csv_reader[0].split(',')
-        priceList = csv_reader[1].split(',')
-        portfolio = {}
-        for x,y in zip(symbolList, priceList):
-            if x != '':
-                portfolio[x.strip('\n')] =y
-        print("Returning portfolio ", portfolio)
-        return portfolio
+        csv_reader = csv.DictReader(csv_file, delimiter = ',')
+        #csv_reader = csv_file.readlines()
+        for keys in csv_reader:
+            for key in keys:
+                #print(keys[key])
+                new_dict[key] = keys[key]
+        return new_dict
 
 def add_to_text_file(stickerToAdd, amount, portfolio):
     print("Will add", stickerToAdd)
@@ -27,3 +25,15 @@ def add_to_text_file(stickerToAdd, amount, portfolio):
                 out.write(str(amount) +',')
             else:
                 out.write(portfolio[y] +',')
+
+def reset_portfolio(symbols):
+    with open('portfolio.csv', 'w') as f_out:
+        #csvReader = csv.DictReader(f_in, delimiter = ';')
+        fieldnames = symbols
+        new_dict = {}
+        writer = csv.DictWriter(f_out, fieldnames=fieldnames, delimiter = ',')
+        writer.writeheader()
+        for y in symbols:
+            new_dict[y] = 'emp'
+        writer.writerow(new_dict)
+    
