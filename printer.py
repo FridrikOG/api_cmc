@@ -2,6 +2,7 @@ def printChoices():
     print("What would you like to do? ")
     print("1. View top 10")
     print("2. Add to holding")
+    print("9. Reset portfolio")
 
 def print_portfolio(portfolio, response):
     print("Here is your portfolio: ")

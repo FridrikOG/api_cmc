@@ -60,16 +60,16 @@ while guardian:
         running = True
         while running:
             try: 
-                stickerToAdd = input("Enter ticker you want to add: ")
-                stickerToAdd = stickerToAdd.upper()
-                portfolio[stickerToAdd]
+                sticker_to_add = input("Enter ticker you want to add: ")
+                sticker_to_add = sticker_to_add.upper()
+                portfolio[sticker_to_add]
                 amount = float(input("Input amount (. to indicate decimal)"))
-                add_to_text_file(stickerToAdd,amount,portfolio)
+                add_to_text_file(sticker_to_add,amount,portfolio)
                 running = False
             except ValueError:
                 print("Valid input please, a number ")
             input("Any button to go back ")
-    elif choice == 3:
+    elif choice == 9:
         reset_portfolio(symbols)
         
 
