@@ -33,6 +33,41 @@ def parameters(start, limit):
 def load_param(param):
     pass
 
+def get_symbol(response):
+    symbols = []
+    for y in response:
+        if y != '':
+            symbol = response[y]['symbol']
+            symbols.append(symbol)
+    return symbols
+
+def run_program(symbols, response):
+    guardian = True
+    while guardian:
+        portfolio = get_portfolio(symbols)
+        print_portfolio(portfolio, response)
+        printChoices()
+        choice = input("Please insert choice: ")
+        if choice == '1':
+            top = print_top_ten(response)
+            input("Any button to go back ")
+        elif choice == '2':
+            running = True
+            while running:
+                try: 
+                    ticker_to_add = input("Enter ticker you want to change: ")
+                    ticker = ticker_to_add.upper()
+                    portfolio[ticker]
+                    amount = float(input("Input amount (. to indicate decimal)"))
+                    add_to_text_file(ticker,amount,portfolio)
+                    running = False
+                except ValueError:
+                    print("Valid input please, a number ")
+                input("Any button to go back ")
+        elif choice == '9':
+            reset_portfolio(symbols)
+            
+
 parameters = parameters(1,199)
 session = Session()
 session.headers.update(HEADERS)
@@ -41,43 +76,12 @@ print(session)
 manager = PortfolioManager()
 manager.params = parameters
 response = manager.get_crypto_data(session, LATESTURL)
-symbols = []
-for y in response:
-    if y != '':
-        symbol = response[y]['symbol']
-        symbols.append(symbol)
-
-guardian = True
-while guardian:
-    portfolio = get_portfolio(symbols)
-    print_portfolio(portfolio, response)
-    printChoices()
-    choice = int(input("Please insert choice: "))
-    if choice == 1:
-        top = print_top_ten(response)
-        input("Any button to go back ")
-    elif choice == 2:
-        running = True
-        while running:
-            try: 
-                sticker_to_add = input("Enter ticker you want to add: ")
-                sticker_to_add = sticker_to_add.upper()
-                portfolio[sticker_to_add]
-                amount = float(input("Input amount (. to indicate decimal)"))
-                add_to_text_file(sticker_to_add,amount,portfolio)
-                running = False
-            except ValueError:
-                print("Valid input please, a number ")
-            input("Any button to go back ")
-    elif choice == 9:
-        reset_portfolio(symbols)
-        
-
-    
-    # This option should clear your portfolio
-
-        
+symbols = get_symbol(response)
+run_program(symbols, response)
 
 
-        
+            
+
+
+            
 
